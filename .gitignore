@@ -1,0 +1,17 @@
+node_modules/
+.next/
+.netlify/
+out/
+.DS_Store
+next-env.d.ts
+*.tsbuildinfo
+.pnpm-store/
+artifacts/
+.cache/
+.temp/
+temp/
+tmp/
+.env
+.env*.local
+作品/
+reference/

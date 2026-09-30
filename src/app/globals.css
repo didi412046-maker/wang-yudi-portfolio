@@ -1,0 +1,78 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body { font-family: Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { color: inherit; font: inherit; }
+.hero { position: relative; isolation: isolate; width: 100%; height: 100vh; height: 100svh; min-height: 440px; overflow: hidden; background: var(--background); color: var(--ink); }
+.visual-layer { position: absolute; pointer-events: none; }
+canvas.visual-layer { inset: 0; width: 100%; height: 100%; }
+.line-curtain-far { z-index: var(--layer-farCurtain); }
+.line-curtain-mid { z-index: var(--layer-midCurtain); }
+.line-curtain-front { z-index: var(--layer-frontCurtain); }
+.beads-far { z-index: var(--layer-farBeads); }
+.beads-mid { z-index: var(--layer-midBeads); }
+.hero-information { position: absolute; inset: 0; z-index: var(--layer-information); pointer-events: none; }
+.info-block { position: absolute; opacity: var(--text-opacity); font-weight: var(--text-weight); font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif; text-align: left; }
+.info-block h1, .info-block h2, .info-block p { margin: 0; }
+/* Real canvas occlusion remains above information; softness never responds to the umbrella. */
+.info-block { color: var(--ink); filter: blur(var(--text-softness, 0px)); }
+/* A sibling of the information stacking context, so functional UI stays in front. */
+.scroll-hint { z-index: var(--layer-navigation); }
+.info-identity h1 { font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", STSong, serif; font-size: var(--font-identity); font-weight: 500; line-height: 1; letter-spacing: .015em; }
+.info-identity p { margin-top: clamp(18px, 1.4vw, 24px); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: var(--font-portfolio); font-weight: 500; line-height: 1.6; letter-spacing: .18em; color: var(--muted); }
+.info-education p { font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", STSong, serif; font-size: var(--font-education); font-weight: 400; line-height: 1.7; white-space: nowrap; }
+.education-supplementary { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; opacity: .85; letter-spacing: .015em; }
+.info-practice h2 { font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", STSong, serif; font-size: var(--font-practice); font-weight: 500; line-height: 1.3; letter-spacing: .025em; white-space: nowrap; }
+.practice-xr { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 500; letter-spacing: .06em; }
+.info-practice p { margin-top: 10px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: var(--font-practiceEnglish); font-weight: 400; line-height: 1.6; letter-spacing: .1em; color: var(--muted); }
+.scroll-hint { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%); margin: 0; font-size: var(--font-scrollHint); font-weight: 400; line-height: 1.4; letter-spacing: .18em; opacity: .7; white-space: nowrap; border: 0; padding: 0; background: transparent; pointer-events: auto; cursor: pointer; }
+.scroll-hint:hover { opacity: 1; }
+.work-scroll-target { min-height: 100vh; min-height: 100svh; }
+.navigation { position: absolute; z-index: var(--layer-navigation); top: 4.6%; right: 5%; display: flex; align-items: center; gap: clamp(24px, 3vw, 56px); }
+.navigation button { border: 0; padding: 10px 0; background: transparent; font-size: clamp(13px, .9vw, 16px); line-height: 1.3; font-weight: 400; letter-spacing: .075em; cursor: pointer; text-underline-offset: 7px; }
+.navigation button:hover { color: #056c92; text-decoration: underline; text-decoration-thickness: 1px; }
+.navigation-work { position: relative; }
+.work-category-menu { position: absolute; top: calc(100% + 5px); left: -20px; width: clamp(260px,20vw,310px); padding: 10px 17px; border: 1px solid color-mix(in srgb,var(--ink) 11%,transparent); background: color-mix(in srgb,var(--background) 91%,transparent); backdrop-filter: blur(13px); -webkit-backdrop-filter: blur(13px); opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-6px); transition: opacity 210ms ease, transform 210ms cubic-bezier(.22,1,.36,1), visibility 210ms; }
+.work-category-menu::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 9px; }
+.navigation-work[data-open="true"] .work-category-menu { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+.navigation .work-category-item { width: 100%; display: grid; grid-template-columns: 28px minmax(0,1fr); column-gap: 12px; align-items: start; padding: 12px 0; color: var(--ink); text-align: left; text-decoration: none; }
+.navigation .work-category-item + .work-category-item { border-top: 1px solid color-mix(in srgb,var(--ink) 9%,transparent); }
+.navigation .work-category-item:hover,
+.navigation .work-category-item:focus-visible { color: var(--ink); text-decoration: none; }
+.work-category-number { padding-top: 2px; font-family: "SFMono-Regular",Consolas,"Liberation Mono",monospace; font-size: 9px; line-height: 1.4; letter-spacing: .14em; opacity: .52; }
+.work-category-copy { display: flex; flex-direction: column; gap: 4px; transition: transform 210ms cubic-bezier(.22,1,.36,1); }
+.work-category-item:hover .work-category-copy,
+.work-category-item:focus-visible .work-category-copy { transform: translateX(3px); }
+.work-category-title { position: relative; display: flex; align-items: center; gap: 0; font-family: "Source Han Serif SC","Noto Serif SC","Songti SC",STSong,serif; font-size: 15px; font-weight: 500; line-height: 1.35; letter-spacing: .02em; }
+.work-category-title i { width: 0; height: 3px; flex: none; border-radius: 50%; background: #61d4d0; opacity: 0; transition: width 210ms ease, margin-right 210ms ease, opacity 210ms ease; }
+.work-category-item:hover .work-category-title i,
+.work-category-item:focus-visible .work-category-title i { width: 3px; margin-right: 7px; opacity: 1; }
+.work-category-subtitle { font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 10px; font-weight: 400; line-height: 1.45; letter-spacing: .04em; opacity: .55; }
+button:focus-visible { outline: 1px solid #287f98; outline-offset: 7px; }
+.umbrella { z-index: var(--layer-umbrella); left: 0; top: 0; width: 0; height: 0; transform-origin: 0 0; transition: opacity var(--umbrella-fade) ease; will-change: transform; }
+.umbrella svg { position: absolute; left: -150px; top: -5px; width: 300px; height: 170px; overflow: visible; }
+.beads-near { z-index: var(--layer-nearBeads); }
+.droplet-cursor { --droplet-highlight: #e0fff4; --droplet-turquoise: #85d9df; --droplet-edge: #187dae; --lens-centre-tint: 22%; --lens-mid-tint: 27%; --lens-edge-tint: 42%; --lens-rim-tint: 5%; --lens-highlight-opacity: 24%; --lens-optical-opacity: 1; z-index: var(--layer-cursor); position: fixed; left: 0; top: 0; width: var(--cursor-size); height: var(--cursor-size); border-radius: 50%; overflow: hidden; opacity: 0; will-change: transform, width, height; pointer-events: none; box-shadow: 0 1px 5px rgba(13,112,158,.18); transition: width 240ms cubic-bezier(.22,1,.36,1), height 240ms cubic-bezier(.22,1,.36,1), box-shadow 240ms ease; }
+.cursor-lens-canvas { position: absolute; z-index: 1; inset: 0; display: block; width: 100%; height: 100%; border: 0; outline: 0; opacity: 0; pointer-events: none; transition: opacity 240ms cubic-bezier(.22,1,.36,1); }
+.droplet-cursor::before { content: ""; position: absolute; z-index: 2; inset: 0; border-radius: inherit; pointer-events: none; opacity: 1; background: radial-gradient(circle at 32% 28%, var(--droplet-highlight) 0%, var(--droplet-turquoise) 17%, var(--cursor-color) 60%, var(--droplet-edge) 100%); transition: opacity 240ms cubic-bezier(.22,1,.36,1); }
+.droplet-cursor::after { content: ""; position: absolute; z-index: 3; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; background: radial-gradient(ellipse 27% 10% at 29% 21%, color-mix(in srgb, var(--droplet-highlight) var(--lens-highlight-opacity), transparent), transparent), radial-gradient(circle at 50% 50%, transparent 92%, color-mix(in srgb, var(--droplet-edge) var(--lens-rim-tint), transparent) 100%), radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--cursor-color) var(--lens-centre-tint), transparent) 0%, color-mix(in srgb, var(--droplet-turquoise) var(--lens-mid-tint), transparent) 68%, color-mix(in srgb, var(--droplet-edge) var(--lens-edge-tint), transparent) 100%); box-shadow: inset 0 0 2px color-mix(in srgb, var(--droplet-turquoise) 18%, transparent); transition: opacity 240ms cubic-bezier(.22,1,.36,1); }
+.cursor-project-label { position: absolute; z-index: 5; inset: 0; display: grid; place-content: center; color: rgba(248,252,252,.96); font-size: 10px; font-weight: 550; line-height: 1.05; letter-spacing: .045em; text-align: center; text-shadow: 0 1px 4px rgba(5,25,35,.28); opacity: 0; pointer-events: none; transition: opacity 240ms cubic-bezier(.22,1,.36,1); }
+.droplet-cursor[data-mode="project"] { width: 76px; height: 76px; box-shadow: 0 2px 7px rgba(23,116,158,.06); }
+.droplet-cursor[data-mode="project"]::before { opacity: 0; }
+.droplet-cursor[data-mode="project"] .cursor-lens-canvas { opacity: var(--lens-optical-opacity); }
+.droplet-cursor[data-mode="project"]::after, .droplet-cursor[data-mode="project"] .cursor-project-label { opacity: 1; }
+.prototype-notice { position: absolute; z-index: var(--layer-notice); bottom: 4%; right: 5%; max-width: 85%; margin: 0; font-family: "SFMono-Regular", Consolas, monospace; font-size: 12px; color: var(--muted); pointer-events: none; }
+@media (pointer: fine) {
+  .hero[data-cursor-active="true"], .hero[data-cursor-active="true"] * { cursor: none !important; }
+}
+@media (max-width: 699px) {
+  .hero { min-height: 560px; }
+  .info-identity { left: 8vw !important; top: 41vh !important; }
+  .info-education { left: 12vw; right: 8vw !important; top: 62vh !important; overflow-x: auto; pointer-events: auto; }
+  .info-practice { left: 18vw !important; top: 23vh !important; max-width: 74vw; }
+  .navigation { top: 3.5%; right: 8%; gap: 24px; }
+  .navigation button { font-size: 12px; }
+  .work-category-menu { left: auto; right: 0; width: min(280px,84vw); }
+}
+@media (pointer: coarse) { .droplet-cursor { display: none; } }
+@media (prefers-reduced-motion: reduce) { .umbrella { transition: none; } }
