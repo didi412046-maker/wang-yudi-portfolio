@@ -100,7 +100,8 @@ function ProjectDownloadContent({ download }: { download: ProjectDetailData["dow
         <a
           className="detail-download-link"
           href={download.href}
-          download={download.fileName}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <span>{download.label}</span>
           <span aria-hidden="true">↓</span>
@@ -111,6 +112,11 @@ function ProjectDownloadContent({ download }: { download: ProjectDetailData["dow
           <span aria-hidden="true">—</span>
         </span>
       )}
+      {download.platform && download.code ? (
+        <p className="detail-full-experience-meta">
+          {download.platform} · 提取码 <strong>{download.code}</strong>
+        </p>
+      ) : null}
       {download.instructions.length > 0 ? (
         <p className="detail-download-instructions">
           {download.instructions.map((line) => (

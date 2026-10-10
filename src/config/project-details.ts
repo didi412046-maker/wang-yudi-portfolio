@@ -74,6 +74,8 @@ export type ProjectDetailData = {
     label: string;
     href?: string;
     fileName?: string;
+    platform?: string;
+    code?: string;
     instructions: readonly string[];
     controls?: readonly {
       control: string;
@@ -112,6 +114,9 @@ export const projectDetails: readonly ProjectDetailData[] = [
       lead: becomingButterflyDetail.download.lead,
       systemLabel: becomingButterflyDetail.download.systemLabel,
       label: becomingButterflyDetail.download.label,
+      href: becomingButterflyDetail.download.href,
+      platform: becomingButterflyDetail.download.platform,
+      code: becomingButterflyDetail.download.code,
       instructions: becomingButterflyDetail.download.instructions,
     },
   },

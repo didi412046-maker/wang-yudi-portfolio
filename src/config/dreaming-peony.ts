@@ -65,8 +65,11 @@ export const dreamingPeonyDetail = {
   },
   download: {
     systemLabel: "WINDOWS · VR",
-    label: "体验包获取方式",
-    instructions: ["如需体验文件，请通过联系方式获取。"],
+    label: "DOWNLOAD WINDOWS BUILD",
+    href: "https://pan.baidu.com/s/1BJOj2QuCPcZHwVKvXKPsIQ?pwd=zfcy",
+    platform: "百度网盘",
+    code: "zfcy",
+    instructions: ["解压后运行 VRstudy.exe。", "体验需连接 VR 头显与手柄控制器。"],
     controls: [
       { control: "左摇杆", action: "移动" },
       { control: "右摇杆", action: "转向" },

@@ -51,7 +51,13 @@ export const becomingButterflyDetail = {
   download: {
     lead: "进入另一种身体，亲自完成这段感知旅程。",
     systemLabel: "WINDOWS · VR",
-    label: "体验包获取方式",
-    instructions: ["如需体验文件，请通过联系方式获取。"],
+    label: "DOWNLOAD WINDOWS BUILD",
+    href: "https://pan.baidu.com/s/191IXonTode7_KJ_paGXczw?pwd=7egh",
+    platform: "百度网盘",
+    code: "7egh",
+    instructions: [
+      "解压后运行 fly.exe。",
+      "体验需连接 VR 头显与手柄控制器。",
+    ],
   },
 } as const;
